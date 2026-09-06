@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miguel y Sus Teclados | Música en vivo para fiestas en Los Ángeles y Lancaster</title>
+  <meta name="description" content="Miguel y Sus Teclados: tecladista profesional para bodas, quinceañeras, bautizos y fiestas en Los Ángeles, Lancaster y Antelope Valley. Música en vivo personalizada.">
+  <meta name="keywords" content="tecladista Los Ángeles, música en vivo fiestas, quinceañeras Lancaster, bodas Antelope Valley, Miguel y Sus Teclados, keyboard player Los Angeles">
+  <meta property="og:title" content="Miguel y Sus Teclados | Música en vivo para momentos inolvidables">
+  <meta property="og:description" content="Lleva la alegría de la música en vivo a tu celebración. Presentaciones personalizadas en Los Ángeles, Lancaster y alrededores.">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0B1426;
+      --secondary: #152238;
+      --accent: #00B4D8;
+      --accent-glow: #4CC9F0;
+      --text: #F0F4F8;
+      --text-muted: #A0AEC0;
+      --gold: #E8B923;
+      --card-bg: rgba(21, 34, 56, 0.85);
+      --border: rgba(0, 180, 216, 0.25);
+      --success: #10B981;
+      --font-sans: 'Montserrat', system-ui, sans-serif;
+      --font-display: 'Playfair Display', Georgia, serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--primary);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, .btn { cursor: pointer; font-family: inherit; border: none; outline: none; }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* Loading */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--primary);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-logo {
+      width: min(280px, 70vw); margin-bottom: 2rem;
+      filter: drop-shadow(0 0 20px rgba(0,180,216,0.4));
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    .waveform {
+      display: flex; gap: 4px; height: 40px; align-items: flex-end;
+    }
+    .waveform span {
+      width: 6px; background: var(--accent);
+      border-radius: 3px;
+      animation: wave 1.2s ease-in-out infinite;
+    }
+    .waveform span:nth-child(1) { animation-delay: 0s; height: 20%; }
+    .waveform span:nth-child(2) { animation-delay: 0.1s; height: 40%; }
+    .waveform span:nth-child(3) { animation-delay: 0.2s; height: 70%; }
+    .waveform span:nth-child(4) { animation-delay: 0.3s; height: 100%; }
+    .waveform span:nth-child(5) { animation-delay: 0.4s; height: 60%; }
+    .waveform span:nth-child(6) { animation-delay: 0.5s; height: 30%; }
+    .waveform span:nth-child(7) { animation-delay: 0.6s; height: 50%; }
+    @keyframes wave {
+      0%, 100% { transform: scaleY(0.4); opacity: 0.6; }
+      50% { transform: scaleY(1); opacity: 1; }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 15px rgba(0,180,216,0.3)); }
+      50% { filter: drop-shadow(0 0 30px rgba(0,180,216,0.6)); }
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1rem 1.5rem;
+      background: transparent;
+      transition: background 0.3s, padding 0.3s, box-shadow 0.3s;
+    }
+    .nav.scrolled {
+      background: rgba(11, 20, 38, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 0.6rem 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-weight: 700; font-size: 1.1rem;
+    }
+    .nav-logo img { height: 42px; width: auto; }
+    .nav-links {
+      display: flex; align-items: center; gap: 0.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      padding: 0.5rem 0.85rem; font-size: 0.9rem; font-weight: 500;
+      color: var(--text-muted); border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(0,180,216,0.12); }
+    .lang-switch {
+      display: flex; gap: 0.25rem; margin-left: 0.5rem;
+      background: rgba(0,180,216,0.15); border-radius: 8px; padding: 0.2rem;
+    }
+    .lang-switch button {
+      padding: 0.35rem 0.7rem; font-size: 0.8rem; font-weight: 600;
+      background: transparent; color: var(--text-muted); border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .lang-switch button.active { background: var(--accent); color: var(--primary); }
+    .nav-toggle {
+      display: none; background: none; color: var(--text); font-size: 1.5rem; padding: 0.25rem;
+    }
+    @media (max-width: 900px) {
+      .nav-links {
+        position: fixed; top: 0; right: -100%; width: min(320px, 85vw); height: 100vh;
+        background: var(--secondary); flex-direction: column; align-items: stretch;
+        padding: 5rem 1.5rem 2rem; gap: 0.5rem;
+        transition: right 0.35s ease; box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+      }
+      .nav-links.open { right: 0; }
+      .nav-links a { padding: 0.85rem 1rem; font-size: 1rem; }
+      .nav-toggle { display: block; }
+      .lang-switch { margin: 1rem 0 0; }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.85rem 1.5rem; font-weight: 600; font-size: 0.95rem;
+      border-radius: 10px; transition: all 0.25s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #0096C7);
+      color: var(--primary); box-shadow: 0 4px 20px rgba(0,180,216,0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,180,216,0.5);
+    }
+    .btn-outline {
+      background: transparent; border: 2px solid var(--accent); color: var(--accent);
+    }
+    .btn-outline:hover { background: rgba(0,180,216,0.15); transform: translateY(-2px); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.15); }
+    .btn-sm { padding: 0.55rem 1.1rem; font-size: 0.85rem; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; position: relative;
+      padding: 6rem 1.5rem 4rem;
+      background: radial-gradient(ellipse at 30% 20%, rgba(0,180,216,0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 80%, rgba(0,180,216,0.08) 0%, transparent 40%),
+                  var(--primary);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('logo-card.png') center/cover no-repeat;
+      opacity: 0.08; filter: blur(2px);
+    }
+    .hero-content {
+      max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .hero-text h1 {
+      font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.15; margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #fff 0%, var(--accent-glow) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-text p {
+      font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.75rem; max-width: 520px;
+    }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-bottom: 1.5rem; }
+    .hero-note { font-size: 0.9rem; color: var(--text-muted); }
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 20px; padding: 1.5rem; box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      position: relative; overflow: hidden;
+    }
+    .hero-card img { border-radius: 12px; width: 100%; max-width: 420px; }
+    .hero-card::after {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(0,180,216,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    @media (max-width: 800px) {
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-text p { margin-left: auto; margin-right: auto; }
+      .hero-btns { justify-content: center; }
+      .hero-visual { order: -1; }
+    }
+
+    /* Sections */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 0.75rem;
+    }
+    .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+    }
+
+    /* Fade in */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* Videos */
+    .videos-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+    }
+    .video-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .video-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,180,216,0.2); }
+    .video-thumb {
+      position: relative; aspect-ratio: 16/9; background: #000; cursor: pointer;
+    }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .video-thumb .play-btn {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.35); transition: background 0.2s;
+    }
+    .video-thumb:hover .play-btn { background: rgba(0,0,0,0.5); }
+    .video-thumb .play-btn i {
+      font-size: 3rem; color: #fff; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+    .video-info { padding: 1rem 1.25rem; }
+    .video-info h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+
+    /* About */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: center;
+    }
+    .about-img {
+      border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .about-img img { width: 100%; }
+    .about-text h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .about-text p { color: var(--text-muted); margin-bottom: 1rem; }
+    @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; } }
+
+    /* Services */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;
+    }
+    .service-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.75rem; transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .service-card:hover {
+      border-color: var(--accent); transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0,180,216,0.15);
+    }
+    .service-card i {
+      font-size: 1.8rem; color: var(--accent); margin-bottom: 1rem;
+    }
+    .service-card h3 { font-size: 1.15rem; margin-bottom: 0.6rem; }
+    .service-card p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem; }
+    .service-price {
+      font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 1rem;
+    }
+
+    /* Events */
+    .events-grid {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
+    }
+    .event-tag {
+      padding: 0.65rem 1.25rem; background: rgba(0,180,216,0.12);
+      border: 1px solid var(--border); border-radius: 50px; font-size: 0.9rem; font-weight: 500;
+      transition: all 0.2s;
+    }
+    .event-tag:hover { background: rgba(0,180,216,0.25); border-color: var(--accent); }
+
+    /* Booking steps */
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;
+      position: relative;
+    }
+    .step {
+      text-align: center; padding: 1.5rem 1rem; background: var(--card-bg);
+      border: 1px solid var(--border); border-radius: 12px; position: relative;
+    }
+    .step-num {
+      width: 40px; height: 40px; margin: 0 auto 0.75rem;
+      background: linear-gradient(135deg, var(--accent), #0096C7);
+      color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.1rem;
+    }
+    .step h4 { font-size: 0.95rem; margin-bottom: 0.35rem; }
+    .step p { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Form */
+    .form-section { background: var(--secondary); }
+    .form-card {
+      max-width: 720px; margin: 0 auto; background: var(--card-bg);
+      border: 1px solid var(--border); border-radius: 16px; padding: 2rem;
+    }
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--text-muted);
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 0.75rem 1rem; background: rgba(11,20,38,0.6);
+      border: 1px solid var(--border); border-radius: 8px; color: var(--text);
+      font-family: inherit; font-size: 0.95rem; transition: border 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--accent);
+    }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .checkboxes { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .checkboxes label {
+      display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; cursor: pointer;
+    }
+    .checkboxes input { width: auto; accent-color: var(--accent); }
+    .form-success {
+      display: none; text-align: center; padding: 2rem; background: rgba(16,185,129,0.15);
+      border: 1px solid var(--success); border-radius: 12px;
+    }
+    .form-success.show { display: block; }
+    .form-success i { font-size: 2.5rem; color: var(--success); margin-bottom: 1rem; }
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;
+    }
+    .testimonial-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.5rem;
+    }
+    .testimonial-card .stars { color: var(--gold); margin-bottom: 0.75rem; }
+    .testimonial-card p { font-style: italic; color: var(--text-muted); margin-bottom: 1rem; }
+    .testimonial-meta { font-size: 0.85rem; color: var(--accent); }
+
+    /* FAQ */
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-item {
+      border: 1px solid var(--border); border-radius: 10px; margin-bottom: 0.75rem;
+      overflow: hidden; background: var(--card-bg);
+    }
+    .faq-q {
+      width: 100%; text-align: left; padding: 1.1rem 1.25rem;
+      background: transparent; color: var(--text); font-weight: 600; font-size: 0.95rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .faq-q i { transition: transform 0.3s; color: var(--accent); }
+    .faq-item.open .faq-q i { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+      padding: 0 1.25rem; color: var(--text-muted); font-size: 0.92rem;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.1rem; }
+
+    /* Contact */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+    }
+    .contact-info h3 { font-size: 1.4rem; margin-bottom: 1rem; }
+    .contact-info p { color: var(--text-muted); margin-bottom: 0.5rem; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+    .contact-links a {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.2rem; background: rgba(0,180,216,0.12);
+      border: 1px solid var(--border); border-radius: 10px; font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .contact-links a:hover { background: rgba(0,180,216,0.25); border-color: var(--accent); }
+    @media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    /* Footer */
+    footer {
+      background: #070D18; padding: 3rem 1.5rem 6rem; border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem;
+    }
+    .footer-brand p { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.75rem; max-width: 300px; }
+    .footer-links h4 { font-size: 0.95rem; margin-bottom: 1rem; }
+    .footer-links a {
+      display: block; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-bottom {
+      max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
+      font-size: 0.85rem; color: var(--text-muted);
+    }
+    @media (max-width: 700px) {
+      .footer-inner { grid-template-columns: 1fr; }
+      footer { padding-bottom: 7rem; }
+    }
+
+    /* Mobile bar */
+    .mobile-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 900;
+      background: rgba(11,20,38,0.97); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border); padding: 0.6rem 0.5rem;
+      justify-content: space-around; gap: 0.25rem;
+    }
+    .mobile-bar a {
+      display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+      font-size: 0.7rem; color: var(--text-muted); padding: 0.35rem;
+      transition: color 0.2s;
+    }
+    .mobile-bar a i { font-size: 1.25rem; }
+    .mobile-bar a:hover, .mobile-bar a:focus { color: var(--accent); }
+    @media (max-width: 768px) { .mobile-bar { display: flex; } }
+
+    /* Floating CTA */
+    .float-cta {
+      position: fixed; bottom: 5.5rem; right: 1.25rem; z-index: 800;
+      display: none;
+    }
+    @media (max-width: 768px) { .float-cta { display: block; } }
+    .float-cta .btn { box-shadow: 0 6px 24px rgba(0,180,216,0.45); border-radius: 50px; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center; padding: 1rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-content {
+      width: min(900px, 95vw); aspect-ratio: 16/9; position: relative;
+    }
+    .lightbox-content iframe { width: 100%; height: 100%; border: none; border-radius: 8px; }
+    .lightbox-close {
+      position: absolute; top: -40px; right: 0; background: none; color: #fff;
+      font-size: 1.5rem; cursor: pointer;
+    }
+
+    /* Policy pages modal style */
+    .modal {
+      display: none; position: fixed; inset: 0; z-index: 1500;
+      background: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal.open { display: flex; }
+    .modal-content {
+      background: var(--secondary); border: 1px solid var(--border); border-radius: 14px;
+      max-width: 640px; max-height: 80vh; overflow-y: auto; padding: 2rem; position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem; background: none; color: var(--text-muted);
+      font-size: 1.25rem; cursor: pointer;
+    }
+    .modal-content h2 { margin-bottom: 1rem; }
+    .modal-content p, .modal-content li { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 0.75rem; }
+    .modal-content ul { padding-left: 1.25rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <img src="logo.png" alt="Miguel y Sus Teclados" class="loader-logo">
+    <div class="waveform" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Principal">
+    <div class="nav-inner">
+      <a href="#inicio" class="nav-logo">
+        <img src="logo.png" alt="Miguel y Sus Teclados logo">
+        <span class="nav-brand-text" data-i18n="brand">Miguel y Sus Teclados</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menú" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#inicio" data-i18n="nav_home">Inicio</a></li>
+        <li><a href="#sobre" data-i18n="nav_about">Sobre Miguel</a></li>
+        <li><a href="#servicios" data-i18n="nav_services">Servicios</a></li>
+        <li><a href="#videos" data-i18n="nav_videos">Videos</a></li>
+        <li><a href="#galeria" data-i18n="nav_gallery">Galería</a></li>
+        <li><a href="#reservaciones" data-i18n="nav_booking">Reservaciones</a></li>
+        <li><a href="#faq" data-i18n="nav_faq">Preguntas</a></li>
+        <li><a href="#contacto" data-i18n="nav_contact">Contacto</a></li>
+        <li>
+          <div class="lang-switch" role="group" aria-label="Idioma">
+            <button type="button" class="active" data-lang="es" aria-pressed="true">Español</button>
+            <button type="button" data-lang="en" aria-pressed="false">English</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <div class="hero-text fade-up">
+        <h1 data-i18n="hero_title">Música en vivo para momentos inolvidables</h1>
+        <p data-i18n="hero_sub">Lleva la alegría de la música en vivo a tu celebración con Miguel y Sus Teclados. Presentaciones personalizadas, cantantes y equipo de iluminación disponibles para crear el ambiente perfecto.</p>
+        <div class="hero-btns">
+          <a href="#reservaciones" class="btn btn-primary" data-i18n="btn_reserve">Reservar una fecha</a>
+          <a href="#reservaciones" class="btn btn-outline" data-i18n="btn_quote">Solicitar cotización</a>
+          <a href="#videos" class="btn btn-ghost" data-i18n="btn_videos">Ver videos</a>
+          <a href="tel:+13107091620" class="btn btn-ghost"><i class="fas fa-phone"></i> <span data-i18n="btn_call">Llamar ahora</span></a>
+        </div>
+        <p class="hero-note" data-i18n="hero_note">Servicio disponible en Los Ángeles, Lancaster, Antelope Valley y otras ciudades por acuerdo previo.</p>
+      </div>
+      <div class="hero-visual fade-up">
+        <div class="hero-card">
+          <img src="logo.png" alt="Logo Miguel y Sus Teclados - teclados, luces y escenario">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Videos -->
+  <section id="videos" style="padding-top: 3rem;">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" data-i18n="videos_label">Escucha y mira</span>
+        <h2 data-i18n="videos_title">Videos destacados</h2>
+        <p data-i18n="videos_sub">Conoce el sonido y la energía de Miguel y Sus Teclados en vivo.</p>
+      </div>
+      <div class="videos-grid">
+        <div class="video-card fade-up">
+          <div class="video-thumb" data-video="l5iubPuL1gY" role="button" tabindex="0" aria-label="Reproducir video">
+            <img src="https://i.ytimg.com/vi/l5iubPuL1gY/hqdefault.jpg" alt="Video de presentación en vivo" loading="lazy">
+            <div class="play-btn"><i class="fas fa-play-circle"></i></div>
+          </div>
+          <div class="video-info">
+            <h3 data-i18n="vid1_title">Presentación en vivo</h3>
+          </div>
+        </div>
+        <div class="video-card fade-up">
+          <div class="video-thumb" data-video="hg8ivBVMx3E" role="button" tabindex="0" aria-label="Reproducir video">
+            <img src="https://i.ytimg.com/vi/hg8ivBVMx3E/hqdefault.jpg" alt="Video de presentación musical" loading="lazy">
+            <div class="play-btn"><i class="fas fa-play-circle"></i></div>
+          </div>
+          <div class="video-info">
+            <h3 data-i18n="vid2_title">Momentos musicales</h3>
+          </div>
+        </div>
+        <div class="video-card fade-up" style="display:flex;align-items:center;justify-content:center;min-height:200px;">
+          <a href="https://youtube.com/@miguel.y.sus.tkla2" target="_blank" rel="noopener" class="btn btn-outline">
+            <i class="fab fa-youtube"></i> <span data-i18n="btn_more_videos">Ver más videos en YouTube</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="sobre">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img fade-up">
+          <img src="logo.png" alt="Miguel Bautista - tecladista de Santiago Matatlán, Oaxaca">
+        </div>
+        <div class="about-text fade-up">
+          <span class="section-label" data-i18n="about_label">Nuestra historia</span>
+          <h2 data-i18n="about_title">Sobre Miguel</h2>
+          <h3 data-i18n="about_name">Miguel Bautista</h3>
+          <p data-i18n="about_p1">Miguel es un tecladista mexicano originario de Santiago Matatlán, Oaxaca. Con pasión por la música en vivo, ayuda a las familias a celebrar los momentos más importantes de sus vidas: bodas, quinceañeras, bautizos, cumpleaños y más.</p>
+          <p data-i18n="about_p2">Como líder de Miguel y Sus Teclados, ofrece presentaciones flexibles: solo con su teclado o acompañado de cantantes, siempre adaptándose a lo que cada cliente necesita para su celebración.</p>
+          <p data-i18n="about_p3">[Espacio para experiencia, influencias musicales, géneros y más detalles de su trayectoria. Información pendiente de proporcionar.]</p>
+          <a href="#reservaciones" class="btn btn-primary" style="margin-top:1rem;" data-i18n="btn_book_miguel">Reservar con Miguel</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="servicios" style="background: var(--secondary);">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" data-i18n="services_label">Lo que ofrecemos</span>
+        <h2 data-i18n="services_title">Servicios y paquetes</h2>
+        <p data-i18n="services_sub">Elige el formato que mejor se adapte a tu evento. Cotización personalizada según fecha, duración y ubicación.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card fade-up">
+          <i class="fas fa-keyboard"></i>
+          <h3 data-i18n="svc1_title">Miguel solo con teclado</h3>
+          <p data-i18n="svc1_desc">Presentación profesional de Miguel con su equipo de teclados. Ideal para ambientes íntimos o como complemento musical.</p>
+          <div class="service-price" data-i18n="price_custom">Cotización personalizada</div>
+          <a href="#reservaciones" class="btn btn-sm btn-outline" data-i18n="btn_quote">Solicitar cotización</a>
+        </div>
+        <div class="service-card fade-up">
+          <i class="fas fa-microphone"></i>
+          <h3 data-i18n="svc2_title">Miguel con un cantante</h3>
+          <p data-i18n="svc2_desc">Miguel acompañado de un cantante profesional. Amplía el repertorio y la energía de la presentación.</p>
+          <div class="service-price" data-i18n="price_custom">Cotización personalizada</div>
+          <a href="#reservaciones" class="btn btn-sm btn-outline" data-i18n="btn_quote">Solicitar cotización</a>
+        </div>
+        <div class="service-card fade-up">
+          <i class="fas fa-users"></i>
+          <h3 data-i18n="svc3_title">Miguel con dos cantantes</h3>
+          <p data-i18n="svc3_desc">Formato completo con dos voces. Mayor variedad musical y dinámica para fiestas grandes.</p>
+          <div class="service-price" data-i18n="price_custom">Cotización personalizada</div>
+          <a href="#reservaciones" class="btn btn-sm btn-outline" data-i18n="btn_quote">Solicitar cotización</a>
+        </div>
+        <div class="service-card fade-up">
+          <i class="fas fa-lightbulb"></i>
+          <h3 data-i18n="svc4_title">Iluminación para el escenario</h3>
+          <p data-i18n="svc4_desc">Equipo de luces profesionales para ambientar el escenario y crear una experiencia visual inolvidable.</p>
+          <div class="service-price" data-i18n="price_custom">Cotización personalizada</div>
+          <a href="#reservaciones" class="btn btn-sm btn-outline" data-i18n="btn_quote">Solicitar cotización</a>
+        </div>
+        <div class="service-card fade-up">
+          <i class="fas fa-music"></i>
+          <h3 data-i18n="svc5_title">Música personalizada</h3>
+          <p data-i18n="svc5_desc">Solicita canciones o estilos específicos. Miguel adapta el repertorio a tus preferencias y al tipo de celebración.</p>
+          <div class="service-price" data-i18n="price_custom">Cotización personalizada</div>
+          <a href="#reservaciones" class="btn btn-sm btn-outline" data-i18n="btn_quote">Solicitar cotización</a>
+        </div>
+        <div class="service-card fade-up">
+          <i class="fas fa-glass-cheers"></i>
+          <h3 data-i18n="svc6_title">Paquetes para celebraciones</h3>
+          <p data-i18n="svc6_desc">Combinaciones pensadas para bodas, quinceañeras, bautizos y fiestas privadas. Todo en un solo paquete.</p>
+          <div class="service-price" data-i18n="price_custom">Cotización personalizada</div>
+          <a href="#reservaciones" class="btn btn-sm btn-outline" data-i18n="btn_quote">Solicitar cotización</a>
+        </div>
+        <div class="service-card fade-up">
+          <i class="fas fa-map-marker-alt"></i>
+          <h3 data-i18n="svc7_title">Presentaciones fuera del área</h3>
+          <p data-i18n="svc7_desc">Disponible para viajar más allá de Los Ángeles, Lancaster y Antelope Valley por acuerdo especial.</p>
+          <div class="service-price" data-i18n="price_custom">Cotización personalizada</div>
+          <a href="#reservaciones" class="btn btn-sm btn-outline" data-i18n="btn_quote">Solicitar cotización</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event types -->
+  <section id="eventos">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" data-i18n="events_label">Para toda ocasión</span>
+        <h2 data-i18n="events_title">Tipos de eventos</h2>
+        <p data-i18n="events_sub">Música en vivo para las celebraciones que más importan.</p>
+      </div>
+      <div class="events-grid fade-up">
+        <span class="event-tag" data-i18n="ev_boda">Bodas</span>
+        <span class="event-tag" data-i18n="ev_quince">Quinceañeras</span>
+        <span class="event-tag" data-i18n="ev_cumple">Cumpleaños</span>
+        <span class="event-tag" data-i18n="ev_aniversario">Aniversarios</span>
+        <span class="event-tag" data-i18n="ev_bautizo">Bautizos</span>
+        <span class="event-tag" data-i18n="ev_familia">Fiestas familiares</span>
+        <span class="event-tag" data-i18n="ev_comunidad">Eventos comunitarios</span>
+        <span class="event-tag" data-i18n="ev_rest">Restaurantes</span>
+        <span class="event-tag" data-i18n="ev_privado">Eventos privados</span>
+        <span class="event-tag" data-i18n="ev_especial">Celebraciones especiales</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery placeholder -->
+  <section id="galeria" style="background: var(--secondary);">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" data-i18n="gallery_label">Momentos</span>
+        <h2 data-i18n="gallery_title">Galería</h2>
+        <p data-i18n="gallery_sub">Fotos y clips de presentaciones. Próximamente se agregarán imágenes reales de eventos.</p>
+      </div>
+      <div class="videos-grid">
+        <div class="video-card fade-up" style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:rgba(0,180,216,0.08);">
+          <div style="text-align:center;padding:2rem;">
+            <i class="fas fa-camera" style="font-size:2.5rem;color:var(--accent);margin-bottom:1rem;"></i>
+            <p data-i18n="gallery_placeholder" style="color:var(--text-muted);">Fotos de presentaciones próximamente</p>
+          </div>
+        </div>
+        <div class="video-card fade-up" style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:rgba(0,180,216,0.08);">
+          <div style="text-align:center;padding:2rem;">
+            <i class="fas fa-images" style="font-size:2.5rem;color:var(--accent);margin-bottom:1rem;"></i>
+            <p data-i18n="gallery_placeholder2" style="color:var(--text-muted);">Galería de eventos</p>
+          </div>
+        </div>
+        <div class="video-card fade-up" style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:rgba(0,180,216,0.08);">
+          <div style="text-align:center;padding:2rem;">
+            <i class="fas fa-lightbulb" style="font-size:2.5rem;color:var(--accent);margin-bottom:1rem;"></i>
+            <p data-i18n="gallery_placeholder3" style="color:var(--text-muted);">Iluminación y escenario</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:2rem;" class="fade-up">
+        <a href="https://www.instagram.com/miguel.ysus.tkla2" target="_blank" rel="noopener" class="btn btn-outline">
+          <i class="fab fa-instagram"></i> <span data-i18n="btn_instagram">Ver en Instagram</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking process -->
+  <section id="proceso">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" data-i18n="process_label">Cómo funciona</span>
+        <h2 data-i18n="process_title">Proceso de reservación</h2>
+        <p data-i18n="process_sub">Simple, claro y profesional.</p>
+      </div>
+      <div class="steps fade-up">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4 data-i18n="step1_t">Envíe su información</h4>
+          <p data-i18n="step1_d">Complete el formulario o contáctenos por teléfono o redes.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4 data-i18n="step2_t">Confirme disponibilidad</h4>
+          <p data-i18n="step2_d">Verificamos la fecha y le respondemos a la brevedad.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4 data-i18n="step3_t">Reciba cotización</h4>
+          <p data-i18n="step3_d">Le enviamos una propuesta personalizada según su paquete.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4 data-i18n="step4_t">Revise y firme</h4>
+          <p data-i18n="step4_d">Contrato claro con todos los detalles del servicio.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <h4 data-i18n="step5_t">Realice el depósito</h4>
+          <p data-i18n="step5_d">Se reserva la fecha al recibir el anticipo acordado.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <h4 data-i18n="step6_t">Confirmación</h4>
+          <p data-i18n="step6_d">Reciba la confirmación de su evento por correo o mensaje.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking form -->
+  <section id="reservaciones" class="form-section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" data-i18n="form_label">Reservaciones</span>
+        <h2 data-i18n="form_title">Solicitar cotización o reservar</h2>
+        <p data-i18n="form_sub">Complete el formulario y nos pondremos en contacto lo antes posible.</p>
+      </div>
+      <div class="form-card fade-up">
+        <form id="bookingForm" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre" data-i18n="f_name">Nombre completo *</label>
+              <input type="text" id="nombre" name="nombre" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="telefono" data-i18n="f_phone">Número de teléfono *</label>
+              <input type="tel" id="telefono" name="telefono" required autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="email" data-i18n="f_email">Correo electrónico</label>
+              <input type="email" id="email" name="email" autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label for="idioma" data-i18n="f_lang">Idioma preferido</label>
+              <select id="idioma" name="idioma">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="tipo" data-i18n="f_event">Tipo de evento *</label>
+              <select id="tipo" name="tipo" required>
+                <option value="" data-i18n="f_select">Seleccione...</option>
+                <option value="boda" data-i18n="ev_boda">Bodas</option>
+                <option value="quince" data-i18n="ev_quince">Quinceañeras</option>
+                <option value="cumple" data-i18n="ev_cumple">Cumpleaños</option>
+                <option value="bautizo" data-i18n="ev_bautizo">Bautizos</option>
+                <option value="aniversario" data-i18n="ev_aniversario">Aniversarios</option>
+                <option value="otro" data-i18n="ev_especial">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fecha" data-i18n="f_date">Fecha del evento *</label>
+              <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="form-group">
+              <label for="hora_inicio" data-i18n="f_start">Hora de inicio</label>
+              <input type="time" id="hora_inicio" name="hora_inicio">
+            </div>
+            <div class="form-group">
+              <label for="hora_fin" data-i18n="f_end">Hora de finalización</label>
+              <input type="time" id="hora_fin" name="hora_fin">
+            </div>
+            <div class="form-group">
+              <label for="lugar" data-i18n="f_venue">Nombre del lugar</label>
+              <input type="text" id="lugar" name="lugar">
+            </div>
+            <div class="form-group">
+              <label for="direccion" data-i18n="f_address">Ciudad o dirección</label>
+              <input type="text" id="direccion" name="direccion">
+            </div>
+            <div class="form-group">
+              <label for="invitados" data-i18n="f_guests">Número aproximado de invitados</label>
+              <input type="number" id="invitados" name="invitados" min="1">
+            </div>
+            <div class="form-group">
+              <label for="paquete" data-i18n="f_package">Paquete deseado</label>
+              <select id="paquete" name="paquete">
+                <option value="" data-i18n="f_select">Seleccione...</option>
+                <option value="solo" data-i18n="svc1_title">Miguel solo con teclado</option>
+                <option value="1cantante" data-i18n="svc2_title">Miguel con un cantante</option>
+                <option value="2cantantes" data-i18n="svc3_title">Miguel con dos cantantes</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cantantes" data-i18n="f_singers">Cantidad de cantantes</label>
+              <select id="cantantes" name="cantantes">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="iluminacion" data-i18n="f_lighting">Servicio de iluminación</label>
+              <select id="iluminacion" name="iluminacion">
+                <option value="no" data-i18n="f_no">No</option>
+                <option value="si" data-i18n="f_yes">Sí</option>
+                <option value="interesado" data-i18n="f_interested">Me interesa</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="musica" data-i18n="f_music">Música o géneros solicitados</label>
+              <input type="text" id="musica" name="musica" placeholder="Ej: cumbia, norteño, boleros...">
+            </div>
+            <div class="form-group">
+              <label for="presupuesto" data-i18n="f_budget">Presupuesto aproximado</label>
+              <input type="text" id="presupuesto" name="presupuesto">
+            </div>
+            <div class="form-group">
+              <label for="como" data-i18n="f_how">¿Cómo nos conoció?</label>
+              <select id="como" name="como">
+                <option value="" data-i18n="f_select">Seleccione...</option>
+                <option value="instagram">Instagram</option>
+                <option value="facebook">Facebook</option>
+                <option value="youtube">YouTube</option>
+                <option value="recomendacion" data-i18n="f_referral">Recomendación</option>
+                <option value="busqueda" data-i18n="f_search">Búsqueda en internet</option>
+                <option value="otro" data-i18n="f_other">Otro</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="notas" data-i18n="f_notes">Notas adicionales</label>
+              <textarea id="notas" name="notas"></textarea>
+            </div>
+            <div class="form-group full">
+              <label data-i18n="f_request">Deseo solicitar:</label>
+              <div class="checkboxes">
+                <label><input type="checkbox" name="req_phone"> <span data-i18n="f_req_phone">Consulta por teléfono</span></label>
+                <label><input type="checkbox" name="req_video"> <span data-i18n="f_req_video">Consulta por video</span></label>
+                <label><input type="checkbox" name="req_quote"> <span data-i18n="f_req_quote">Cotización por escrito</span></label>
+                <label><input type="checkbox" name="req_contract"> <span data-i18n="f_req_contract">Información del contrato</span></label>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;text-align:center;">
+            <button type="submit" class="btn btn-primary" style="min-width:200px;" data-i18n="btn_submit">Enviar solicitud</button>
+          </div>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <i class="fas fa-check-circle"></i>
+          <p data-i18n="form_thanks">Gracias por comunicarse con Miguel y Sus Teclados. Revisaremos la información de su evento y nos comunicaremos con usted lo antes posible. Su fecha no estará oficialmente reservada hasta que se confirme la disponibilidad, se firme el contrato y se reciba el depósito.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonios">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" data-i18n="test_label">Opiniones</span>
+        <h2 data-i18n="test_title">Testimonios</h2>
+        <p data-i18n="test_sub">Lo que dicen las familias que han celebrado con nosotros. (Espacio para reseñas reales próximamente.)</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card fade-up">
+          <div class="stars">★★★★★</div>
+          <p data-i18n="test1">"[Espacio para reseña auténtica de un cliente.]"</p>
+          <div class="testimonial-meta" data-i18n="test1_meta">— Nombre · Tipo de evento · Ciudad</div>
+        </div>
+        <div class="testimonial-card fade-up">
+          <div class="stars">★★★★★</div>
+          <p data-i18n="test2">"[Espacio para reseña auténtica de un cliente.]"</p>
+          <div class="testimonial-meta" data-i18n="test2_meta">— Nombre · Tipo de evento · Ciudad</div>
+        </div>
+        <div class="testimonial-card fade-up">
+          <div class="stars">★★★★★</div>
+          <p data-i18n="test3">"[Espacio para reseña auténtica de un cliente.]"</p>
+          <div class="testimonial-meta" data-i18n="test3_meta">— Nombre · Tipo de evento · Ciudad</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="background: var(--secondary);">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" data-i18n="faq_label">Dudas frecuentes</span>
+        <h2 data-i18n="faq_title">Preguntas frecuentes</h2>
+      </div>
+      <div class="faq-list fade-up">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq1_q">¿Con cuánta anticipación debo reservar?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq1_a">Recomendamos reservar con la mayor anticipación posible, especialmente en temporadas altas (primavera y verano). [Política exacta pendiente.]</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq2_q">¿Cómo se asegura la fecha?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq2_a">La fecha se asegura al firmar el contrato y recibir el depósito acordado. Hasta entonces, la disponibilidad puede cambiar.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq3_q">¿Se requiere depósito?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq3_a">Sí. Se solicita un anticipo para reservar la fecha. El resto se paga antes o al finalizar el evento, según lo acordado en el contrato.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq4_q">¿Miguel viaja fuera de Los Ángeles o Lancaster?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq4_a">Sí, por acuerdo previo. Cubrimos el área de Los Ángeles, Lancaster, Antelope Valley y alrededores. Otras ubicaciones se evalúan caso por caso.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq5_q">¿Puedo solicitar canciones específicas?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq5_a">Sí. Indique sus preferencias en el formulario o al confirmar el contrato. Haremos lo posible por incluirlas en el repertorio.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq6_q">¿Se pueden incluir cantantes?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq6_a">Sí. Ofrecemos paquetes con uno o dos cantantes. Seleccione la opción al solicitar su cotización.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq7_q">¿La iluminación está incluida?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq7_a">La iluminación profesional es un servicio opcional que se cotiza por separado o dentro de paquetes especiales.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq8_q">¿Cuánto dura la presentación?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq8_a">La duración se acuerda en el contrato (por ejemplo, 4 horas). Incluye descansos de 15 minutos por cada hora de ejecución.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq9_q">¿Qué necesita proporcionar el lugar?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq9_a">Un espacio suficientemente amplio, cubierto en caso de lluvia, y suministro de energía eléctrica adecuada. Detalles en el contrato.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false"><span data-i18n="faq10_q">¿Qué pasa si se cancela o se cambia la fecha?</span><i class="fas fa-chevron-down"></i></button>
+          <div class="faq-a"><p data-i18n="faq10_a">Las condiciones de cancelación y cambio de fecha se detallan en el contrato. En caso de suspensión por causas ajenas, puede aplicarse un porcentaje del monto acordado.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contacto">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-label" data-i18n="contact_label">Hablemos</span>
+        <h2 data-i18n="contact_title">Contacto</h2>
+      </div>
+      <div class="contact-grid fade-up">
+        <div class="contact-info">
+          <h3>Miguel Bautista</h3>
+          <p><strong>Miguel y Sus Teclados</strong></p>
+          <p><i class="fas fa-phone" style="color:var(--accent);margin-right:0.5rem;"></i> <a href="tel:+13107091620">(310) 709-1620</a></p>
+          <p><i class="fas fa-phone" style="color:var(--accent);margin-right:0.5rem;"></i> <a href="tel:+13236326028">(323) 632-6028</a></p>
+          <p data-i18n="contact_note" style="margin-top:1rem;">Si no puede comunicarse por teléfono, envíenos un mensaje directo por nuestras redes sociales o deje sus datos en el formulario. Nos comunicaremos con usted lo antes posible.</p>
+          <div class="contact-links">
+            <a href="tel:+13107091620"><i class="fas fa-phone"></i> <span data-i18n="btn_call">Llamar</span></a>
+            <a href="#reservaciones"><i class="fas fa-envelope"></i> <span data-i18n="btn_message">Enviar mensaje</span></a>
+            <a href="https://www.instagram.com/miguel.ysus.tkla2" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.facebook.com/miguel.y.sus.teclados.868866" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://youtube.com/@miguel.y.sus.tkla2" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="#reservaciones"><i class="fas fa-file-invoice-dollar"></i> <span data-i18n="btn_quote">Solicitar cotización</span></a>
+          </div>
+        </div>
+        <div>
+          <div class="hero-card" style="padding:1rem;">
+            <img src="logo-card.png" alt="Tarjeta de presentación Miguel y Sus Teclados" style="border-radius:8px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <strong data-i18n="brand">Miguel y Sus Teclados</strong>
+        <p data-i18n="footer_tag">Música en vivo profesional para bodas, quinceañeras y celebraciones en Los Ángeles, Lancaster y Antelope Valley.</p>
+      </div>
+      <div class="footer-links">
+        <h4 data-i18n="footer_nav">Navegación</h4>
+        <a href="#inicio" data-i18n="nav_home">Inicio</a>
+        <a href="#servicios" data-i18n="nav_services">Servicios</a>
+        <a href="#reservaciones" data-i18n="nav_booking">Reservaciones</a>
+        <a href="#contacto" data-i18n="nav_contact">Contacto</a>
+      </div>
+      <div class="footer-links">
+        <h4 data-i18n="footer_legal">Legal</h4>
+        <a href="#" data-modal="privacy" data-i18n="link_privacy">Política de privacidad</a>
+        <a href="#" data-modal="terms" data-i18n="link_terms">Términos de reservación</a>
+        <a href="#" data-modal="cancel" data-i18n="link_cancel">Política de cancelación</a>
+        <a href="#" data-modal="agreement" data-i18n="link_agreement">Acuerdo de servicio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Miguel y Sus Teclados. <span data-i18n="footer_rights">Todos los derechos reservados.</span></span>
+      <span data-i18n="footer_area">Los Ángeles · Lancaster · Antelope Valley</span>
+    </div>
+  </footer>
+
+  <!-- Mobile bar -->
+  <div class="mobile-bar" role="navigation" aria-label="Contacto rápido">
+    <a href="tel:+13107091620"><i class="fas fa-phone"></i><span data-i18n="btn_call">Llamar</span></a>
+    <a href="#reservaciones"><i class="fas fa-file-invoice-dollar"></i><span data-i18n="btn_quote_short">Cotización</span></a>
+    <a href="#reservaciones"><i class="fas fa-calendar-check"></i><span data-i18n="btn_reserve_short">Reservar</span></a>
+    <a href="https://www.instagram.com/miguel.ysus.tkla2" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i><span>IG</span></a>
+  </div>
+
+  <!-- Float CTA -->
+  <div class="float-cta">
+    <a href="#reservaciones" class="btn btn-primary" data-i18n="btn_quote">Solicitar cotización</a>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+      <iframe id="lightboxFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Video de YouTube"></iframe>
+    </div>
+  </div>
+
+  <!-- Modals for policies -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // i18n
+    const translations = {
+      es: {
+        brand: "Miguel y Sus Teclados",
+        nav_home: "Inicio", nav_about: "Sobre Miguel", nav_services: "Servicios", nav_videos: "Videos",
+        nav_gallery: "Galería", nav_booking: "Reservaciones", nav_faq: "Preguntas", nav_contact: "Contacto",
+        hero_title: "Música en vivo para momentos inolvidables",
+        hero_sub: "Lleva la alegría de la música en vivo a tu celebración con Miguel y Sus Teclados. Presentaciones personalizadas, cantantes y equipo de iluminación disponibles para crear el ambiente perfecto.",
+        btn_reserve: "Reservar una fecha", btn_quote: "Solicitar cotización", btn_videos: "Ver videos", btn_call: "Llamar ahora",
+        hero_note: "Servicio disponible en Los Ángeles, Lancaster, Antelope Valley y otras ciudades por acuerdo previo.",
+        videos_label: "Escucha y mira", videos_title: "Videos destacados", videos_sub: "Conoce el sonido y la energía de Miguel y Sus Teclados en vivo.",
+        vid1_title: "Presentación en vivo", vid2_title: "Momentos musicales", btn_more_videos: "Ver más videos en YouTube",
+        about_label: "Nuestra historia", about_title: "Sobre Miguel", about_name: "Miguel Bautista",
+        about_p1: "Miguel es un tecladista mexicano originario de Santiago Matatlán, Oaxaca. Con pasión por la música en vivo, ayuda a las familias a celebrar los momentos más importantes de sus vidas: bodas, quinceañeras, bautizos, cumpleaños y más.",
+        about_p2: "Como líder de Miguel y Sus Teclados, ofrece presentaciones flexibles: solo con su teclado o acompañado de cantantes, siempre adaptándose a lo que cada cliente necesita para su celebración.",
+        about_p3: "[Espacio para experiencia, influencias musicales, géneros y más detalles de su trayectoria. Información pendiente de proporcionar.]",
+        btn_book_miguel: "Reservar con Miguel",
+        services_label: "Lo que ofrecemos", services_title: "Servicios y paquetes",
+        services_sub: "Elige el formato que mejor se adapte a tu evento. Cotización personalizada según fecha, duración y ubicación.",
+        svc1_title: "Miguel solo con teclado", svc1_desc: "Presentación profesional de Miguel con su equipo de teclados. Ideal para ambientes íntimos o como complemento musical.",
+        svc2_title: "Miguel con un cantante", svc2_desc: "Miguel acompañado de un cantante profesional. Amplía el repertorio y la energía de la presentación.",
+        svc3_title: "Miguel con dos cantantes", svc3_desc: "Formato completo con dos voces. Mayor variedad musical y dinámica para fiestas grandes.",
+        svc4_title: "Iluminación para el escenario", svc4_desc: "Equipo de luces profesionales para ambientar el escenario y crear una experiencia visual inolvidable.",
+        svc5_title: "Música personalizada", svc5_desc: "Solicita canciones o estilos específicos. Miguel adapta el repertorio a tus preferencias y al tipo de celebración.",
+        svc6_title: "Paquetes para celebraciones", svc6_desc: "Combinaciones pensadas para bodas, quinceañeras, bautizos y fiestas privadas. Todo en un solo paquete.",
+        svc7_title: "Presentaciones fuera del área", svc7_desc: "Disponible para viajar más allá de Los Ángeles, Lancaster y Antelope Valley por acuerdo especial.",
+        price_custom: "Cotización personalizada",
+        events_label: "Para toda ocasión", events_title: "Tipos de eventos", events_sub: "Música en vivo para las celebraciones que más importan.",
+        ev_boda: "Bodas", ev_quince: "Quinceañeras", ev_cumple: "Cumpleaños", ev_aniversario: "Aniversarios",
+        ev_bautizo: "Bautizos", ev_familia: "Fiestas familiares", ev_comunidad: "Eventos comunitarios",
+        ev_rest: "Restaurantes", ev_privado: "Eventos privados", ev_especial: "Celebraciones especiales",
+        gallery_label: "Momentos", gallery_title: "Galería", gallery_sub: "Fotos y clips de presentaciones. Próximamente se agregarán imágenes reales de eventos.",
+        gallery_placeholder: "Fotos de presentaciones próximamente", gallery_placeholder2: "Galería de eventos", gallery_placeholder3: "Iluminación y escenario",
+        btn_instagram: "Ver en Instagram",
+        process_label: "Cómo funciona", process_title: "Proceso de reservación", process_sub: "Simple, claro y profesional.",
+        step1_t: "Envíe su información", step1_d: "Complete el formulario o contáctenos por teléfono o redes.",
+        step2_t: "Confirme disponibilidad", step2_d: "Verificamos la fecha y le respondemos a la brevedad.",
+        step3_t: "Reciba cotización", step3_d: "Le enviamos una propuesta personalizada según su paquete.",
+        step4_t: "Revise y firme", step4_d: "Contrato claro con todos los detalles del servicio.",
+        step5_t: "Realice el depósito", step5_d: "Se reserva la fecha al recibir el anticipo acordado.",
+        step6_t: "Confirmación", step6_d: "Reciba la confirmación de su evento por correo o mensaje.",
+        form_label: "Reservaciones", form_title: "Solicitar cotización o reservar", form_sub: "Complete el formulario y nos pondremos en contacto lo antes posible.",
+        f_name: "Nombre completo *", f_phone: "Número de teléfono *", f_email: "Correo electrónico", f_lang: "Idioma preferido",
+        f_event: "Tipo de evento *", f_date: "Fecha del evento *", f_start: "Hora de inicio", f_end: "Hora de finalización",
+        f_venue: "Nombre del lugar", f_address: "Ciudad o dirección", f_guests: "Número aproximado de invitados",
+        f_package: "Paquete deseado", f_singers: "Cantidad de cantantes", f_lighting: "Servicio de iluminación",
+        f_music: "Música o géneros solicitados", f_budget: "Presupuesto aproximado", f_how: "¿Cómo nos conoció?",
+        f_notes: "Notas adicionales", f_request: "Deseo solicitar:", f_req_phone: "Consulta por teléfono",
+        f_req_video: "Consulta por video", f_req_quote: "Cotización por escrito", f_req_contract: "Información del contrato",
+        f_select: "Seleccione...", f_no: "No", f_yes: "Sí", f_interested: "Me interesa", f_referral: "Recomendación",
+        f_search: "Búsqueda en internet", f_other: "Otro",
+        btn_submit: "Enviar solicitud",
+        form_thanks: "Gracias por comunicarse con Miguel y Sus Teclados. Revisaremos la información de su evento y nos comunicaremos con usted lo antes posible. Su fecha no estará oficialmente reservada hasta que se confirme la disponibilidad, se firme el contrato y se reciba el depósito.",
+        test_label: "Opiniones", test_title: "Testimonios", test_sub: "Lo que dicen las familias que han celebrado con nosotros. (Espacio para reseñas reales próximamente.)",
+        test1: "\"[Espacio para reseña auténtica de un cliente.]\"", test1_meta: "— Nombre · Tipo de evento · Ciudad",
+        test2: "\"[Espacio para reseña auténtica de un cliente.]\"", test2_meta: "— Nombre · Tipo de evento · Ciudad",
+        test3: "\"[Espacio para reseña auténtica de un cliente.]\"", test3_meta: "— Nombre · Tipo de evento · Ciudad",
+        faq_label: "Dudas frecuentes", faq_title: "Preguntas frecuentes",
+        faq1_q: "¿Con cuánta anticipación debo reservar?", faq1_a: "Recomendamos reservar con la mayor anticipación posible, especialmente en temporadas altas (primavera y verano). [Política exacta pendiente.]",
+        faq2_q: "¿Cómo se asegura la fecha?", faq2_a: "La fecha se asegura al firmar el contrato y recibir el depósito acordado. Hasta entonces, la disponibilidad puede cambiar.",
+        faq3_q: "¿Se requiere depósito?", faq3_a: "Sí. Se solicita un anticipo para reservar la fecha. El resto se paga antes o al finalizar el evento, según lo acordado en el contrato.",
+        faq4_q: "¿Miguel viaja fuera de Los Ángeles o Lancaster?", faq4_a: "Sí, por acuerdo previo. Cubrimos el área de Los Ángeles, Lancaster, Antelope Valley y alrededores. Otras ubicaciones se evalúan caso por caso.",
+        faq5_q: "¿Puedo solicitar canciones específicas?", faq5_a: "Sí. Indique sus preferencias en el formulario o al confirmar el contrato. Haremos lo posible por incluirlas en el repertorio.",
+        faq6_q: "¿Se pueden incluir cantantes?", faq6_a: "Sí. Ofrecemos paquetes con uno o dos cantantes. Seleccione la opción al solicitar su cotización.",
+        faq7_q: "¿La iluminación está incluida?", faq7_a: "La iluminación profesional es un servicio opcional que se cotiza por separado o dentro de paquetes especiales.",
+        faq8_q: "¿Cuánto dura la presentación?", faq8_a: "La duración se acuerda en el contrato (por ejemplo, 4 horas). Incluye descansos de 15 minutos por cada hora de ejecución.",
+        faq9_q: "¿Qué necesita proporcionar el lugar?", faq9_a: "Un espacio suficientemente amplio, cubierto en caso de lluvia, y suministro de energía eléctrica adecuada. Detalles en el contrato.",
+        faq10_q: "¿Qué pasa si se cancela o se cambia la fecha?", faq10_a: "Las condiciones de cancelación y cambio de fecha se detallan en el contrato. En caso de suspensión por causas ajenas, puede aplicarse un porcentaje del monto acordado.",
+        contact_label: "Hablemos", contact_title: "Contacto",
+        contact_note: "Si no puede comunicarse por teléfono, envíenos un mensaje directo por nuestras redes sociales o deje sus datos en el formulario. Nos comunicaremos con usted lo antes posible.",
+        btn_message: "Enviar mensaje",
+        footer_tag: "Música en vivo profesional para bodas, quinceañeras y celebraciones en Los Ángeles, Lancaster y Antelope Valley.",
+        footer_nav: "Navegación", footer_legal: "Legal", footer_rights: "Todos los derechos reservados.",
+        footer_area: "Los Ángeles · Lancaster · Antelope Valley",
+        link_privacy: "Política de privacidad", link_terms: "Términos de reservación", link_cancel: "Política de cancelación", link_agreement: "Acuerdo de servicio",
+        btn_quote_short: "Cotización", btn_reserve_short: "Reservar"
+      },
+      en: {
+        brand: "Miguel y Sus Teclados",
+        nav_home: "Home", nav_about: "About Miguel", nav_services: "Services", nav_videos: "Videos",
+        nav_gallery: "Gallery", nav_booking: "Booking", nav_faq: "FAQ", nav_contact: "Contact",
+        hero_title: "Live music for unforgettable moments",
+        hero_sub: "Bring the joy of live music to your celebration with Miguel y Sus Teclados. Custom performances, singers, and lighting available to create the perfect atmosphere.",
+        btn_reserve: "Book a date", btn_quote: "Request a quote", btn_videos: "Watch videos", btn_call: "Call now",
+        hero_note: "Available in Los Angeles, Lancaster, Antelope Valley, and other cities by prior arrangement.",
+        videos_label: "Listen & watch", videos_title: "Featured videos", videos_sub: "Experience the sound and energy of Miguel y Sus Teclados live.",
+        vid1_title: "Live performance", vid2_title: "Musical moments", btn_more_videos: "More videos on YouTube",
+        about_label: "Our story", about_title: "About Miguel", about_name: "Miguel Bautista",
+        about_p1: "Miguel is a Mexican keyboardist from Santiago Matatlán, Oaxaca. With a passion for live music, he helps families celebrate life’s most important moments: weddings, quinceañeras, baptisms, birthdays, and more.",
+        about_p2: "As the leader of Miguel y Sus Teclados, he offers flexible performances: keyboard alone or with singers, always tailored to what each client needs for their celebration.",
+        about_p3: "[Space for experience, musical influences, genres, and more of his background. Information to be provided.]",
+        btn_book_miguel: "Book with Miguel",
+        services_label: "What we offer", services_title: "Services & packages",
+        services_sub: "Choose the format that best fits your event. Custom quotes based on date, length, and location.",
+        svc1_title: "Miguel keyboard only", svc1_desc: "Professional performance by Miguel with his keyboard setup. Ideal for intimate settings or as musical support.",
+        svc2_title: "Miguel with one singer", svc2_desc: "Miguel accompanied by a professional singer. Expands the repertoire and energy of the show.",
+        svc3_title: "Miguel with two singers", svc3_desc: "Full format with two voices. Greater musical variety and dynamics for larger parties.",
+        svc4_title: "Stage lighting", svc4_desc: "Professional lighting to set the stage and create an unforgettable visual experience.",
+        svc5_title: "Custom music", svc5_desc: "Request specific songs or styles. Miguel adapts the repertoire to your preferences and celebration type.",
+        svc6_title: "Celebration packages", svc6_desc: "Combinations designed for weddings, quinceañeras, baptisms, and private parties. Everything in one package.",
+        svc7_title: "Travel outside the local area", svc7_desc: "Available to travel beyond Los Angeles, Lancaster, and Antelope Valley by special arrangement.",
+        price_custom: "Custom quote",
+        events_label: "For every occasion", events_title: "Event types", events_sub: "Live music for the celebrations that matter most.",
+        ev_boda: "Weddings", ev_quince: "Quinceañeras", ev_cumple: "Birthdays", ev_aniversario: "Anniversaries",
+        ev_bautizo: "Baptisms", ev_familia: "Family parties", ev_comunidad: "Community events",
+        ev_rest: "Restaurants", ev_privado: "Private events", ev_especial: "Special celebrations",
+        gallery_label: "Moments", gallery_title: "Gallery", gallery_sub: "Photos and clips from performances. Real event images coming soon.",
+        gallery_placeholder: "Performance photos coming soon", gallery_placeholder2: "Event gallery", gallery_placeholder3: "Lighting & stage",
+        btn_instagram: "View on Instagram",
+        process_label: "How it works", process_title: "Booking process", process_sub: "Simple, clear, and professional.",
+        step1_t: "Send your info", step1_d: "Fill out the form or contact us by phone or social media.",
+        step2_t: "Confirm availability", step2_d: "We check the date and respond promptly.",
+        step3_t: "Receive a quote", step3_d: "We send a personalized proposal based on your package.",
+        step4_t: "Review & sign", step4_d: "Clear contract with all service details.",
+        step5_t: "Pay the deposit", step5_d: "The date is reserved once the agreed deposit is received.",
+        step6_t: "Confirmation", step6_d: "Receive event confirmation by email or message.",
+        form_label: "Booking", form_title: "Request a quote or book", form_sub: "Complete the form and we will contact you as soon as possible.",
+        f_name: "Full name *", f_phone: "Phone number *", f_email: "Email", f_lang: "Preferred language",
+        f_event: "Event type *", f_date: "Event date *", f_start: "Start time", f_end: "End time",
+        f_venue: "Venue name", f_address: "City or address", f_guests: "Approximate number of guests",
+        f_package: "Desired package", f_singers: "Number of singers", f_lighting: "Lighting service",
+        f_music: "Requested music or genres", f_budget: "Approximate budget", f_how: "How did you hear about us?",
+        f_notes: "Additional notes", f_request: "I would like to request:", f_req_phone: "Phone consultation",
+        f_req_video: "Video consultation", f_req_quote: "Written quote", f_req_contract: "Contract information",
+        f_select: "Select...", f_no: "No", f_yes: "Yes", f_interested: "I'm interested", f_referral: "Referral",
+        f_search: "Internet search", f_other: "Other",
+        btn_submit: "Submit request",
+        form_thanks: "Thank you for contacting Miguel y Sus Teclados. We will review your event information and get back to you as soon as possible. Your date will not be officially reserved until availability is confirmed, the contract is signed, and the deposit is received.",
+        test_label: "Reviews", test_title: "Testimonials", test_sub: "What families who have celebrated with us say. (Space for real reviews coming soon.)",
+        test1: "\"[Space for an authentic client review.]\"", test1_meta: "— Name · Event type · City",
+        test2: "\"[Space for an authentic client review.]\"", test2_meta: "— Name · Event type · City",
+        test3: "\"[Space for an authentic client review.]\"", test3_meta: "— Name · Event type · City",
+        faq_label: "Common questions", faq_title: "Frequently asked questions",
+        faq1_q: "How far in advance should I book?", faq1_a: "We recommend booking as early as possible, especially during peak seasons (spring and summer). [Exact policy pending.]",
+        faq2_q: "How is the date secured?", faq2_a: "The date is secured when the contract is signed and the agreed deposit is received. Until then, availability may change.",
+        faq3_q: "Is a deposit required?", faq3_a: "Yes. A deposit is required to reserve the date. The balance is paid before or at the end of the event, as agreed in the contract.",
+        faq4_q: "Does Miguel travel outside Los Angeles or Lancaster?", faq4_a: "Yes, by prior arrangement. We cover the Los Angeles, Lancaster, Antelope Valley, and surrounding areas. Other locations are evaluated case by case.",
+        faq5_q: "Can I request specific songs?", faq5_a: "Yes. Share your preferences on the form or when confirming the contract. We will do our best to include them in the repertoire.",
+        faq6_q: "Can singers be included?", faq6_a: "Yes. We offer packages with one or two singers. Select the option when requesting your quote.",
+        faq7_q: "Is lighting included?", faq7_a: "Professional lighting is an optional service quoted separately or within special packages.",
+        faq8_q: "How long are the performances?", faq8_a: "Duration is agreed in the contract (for example, 4 hours). Includes 15-minute breaks per hour of performance.",
+        faq9_q: "What does the venue need to provide?", faq9_a: "A sufficiently large space, covered in case of rain, and adequate electrical supply. Details in the contract.",
+        faq10_q: "What happens if the event is canceled or rescheduled?", faq10_a: "Cancellation and date-change terms are detailed in the contract. In case of suspension for external reasons, a percentage of the agreed amount may apply.",
+        contact_label: "Let's talk", contact_title: "Contact",
+        contact_note: "If you cannot reach us by phone, send a direct message on our social media or leave your details on the form. We will get back to you as soon as possible.",
+        btn_message: "Send message",
+        footer_tag: "Professional live music for weddings, quinceañeras, and celebrations in Los Angeles, Lancaster, and Antelope Valley.",
+        footer_nav: "Navigation", footer_legal: "Legal", footer_rights: "All rights reserved.",
+        footer_area: "Los Angeles · Lancaster · Antelope Valley",
+        link_privacy: "Privacy policy", link_terms: "Booking terms", link_cancel: "Cancellation policy", link_agreement: "Service agreement",
+        btn_quote_short: "Quote", btn_reserve_short: "Book"
+      }
+    };
+
+    let currentLang = 'es';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.querySelectorAll('.lang-switch button').forEach(btn => {
+        const isActive = btn.dataset.lang === lang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive);
+      });
+      // Update title/meta roughly
+      if (lang === 'en') {
+        document.title = "Miguel y Sus Teclados | Live Music for Parties in Los Angeles & Lancaster";
+      } else {
+        document.title = "Miguel y Sus Teclados | Música en vivo para fiestas en Los Ángeles y Lancaster";
+      }
+    }
+
+    document.querySelectorAll('.lang-switch button').forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.lang));
+    });
+
+    // Loader
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 1200);
+    });
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open);
+      navToggle.innerHTML = open ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+
+    // Fade up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // FAQ
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const open = item.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+      });
+    });
+
+    // Videos lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxFrame = document.getElementById('lightboxFrame');
+    document.querySelectorAll('.video-thumb[data-video]').forEach(thumb => {
+      const open = () => {
+        lightboxFrame.src = `https://www.youtube.com/embed/${thumb.dataset.video}?autoplay=1&rel=0`;
+        lightbox.classList.add('open');
+      };
+      thumb.addEventListener('click', open);
+      thumb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    });
+    document.getElementById('lightboxClose').addEventListener('click', () => {
+      lightbox.classList.remove('open');
+      lightboxFrame.src = '';
+    });
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('open');
+        lightboxFrame.src = '';
+      }
+    });
+
+    // Form
+    document.getElementById('bookingForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const form = e.target;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      form.style.display = 'none';
+      document.getElementById('formSuccess').classList.add('show');
+      // In production: send to backend / Formspree / email service
+    });
+
+    // Modals
+    const policyContent = {
+      privacy: {
+        es: `<h2>Política de privacidad</h2>
+          <p>Miguel y Sus Teclados respeta su privacidad. La información que nos proporciona a través del formulario de contacto o reservación (nombre, teléfono, correo, detalles del evento) se utiliza únicamente para responder a su solicitud y coordinar el servicio.</p>
+          <p>No vendemos ni compartimos sus datos con terceros para fines de marketing. Podemos usar plataformas de mensajería o correo para comunicarnos con usted.</p>
+          <p>Para preguntas sobre sus datos, contáctenos al (310) 709-1620.</p>`,
+        en: `<h2>Privacy policy</h2>
+          <p>Miguel y Sus Teclados respects your privacy. Information you provide through the contact or booking form (name, phone, email, event details) is used only to respond to your request and coordinate the service.</p>
+          <p>We do not sell or share your data with third parties for marketing. We may use messaging or email platforms to communicate with you.</p>
+          <p>For questions about your data, contact us at (310) 709-1620.</p>`
+      },
+      terms: {
+        es: `<h2>Términos de reservación</h2>
+          <p>Al solicitar una cotización o reservar, usted acepta que:</p>
+          <ul>
+            <li>La disponibilidad se confirma por escrito (contrato firmado y depósito recibido).</li>
+            <li>Los precios y condiciones se detallan en la cotización y el contrato musical.</li>
+            <li>El cliente proporciona un espacio adecuado y energía eléctrica suficiente.</li>
+            <li>Los horarios de inicio y fin, y los descansos, se respetan según lo pactado.</li>
+          </ul>
+          <p>El contrato completo se entrega al confirmar la reserva.</p>`,
+        en: `<h2>Booking terms</h2>
+          <p>By requesting a quote or booking, you agree that:</p>
+          <ul>
+            <li>Availability is confirmed in writing (signed contract and deposit received).</li>
+            <li>Prices and conditions are detailed in the quote and the musical contract.</li>
+            <li>The client provides an adequate space and sufficient electrical power.</li>
+            <li>Start and end times, and breaks, are respected as agreed.</li>
+          </ul>
+          <p>The full contract is provided upon confirming the booking.</p>`
+      },
+      cancel: {
+        es: `<h2>Política de cancelación</h2>
+          <p>Según el contrato típico de Miguel y Sus Teclados:</p>
+          <ul>
+            <li>El contrato no es transferible de fecha sin acuerdo previo.</li>
+            <li>En caso de suspensión del servicio por cualquier causa atribuible al contratante, puede aplicarse el pago del 50% de la cantidad acordada.</li>
+            <li>Si se suspende el evento por riña, pelea u otra situación, el contratante se compromete al pago del 100% de lo pactado.</li>
+          </ul>
+          <p>Las condiciones exactas se especifican en el contrato firmado para cada evento.</p>`,
+        en: `<h2>Cancellation policy</h2>
+          <p>According to the typical Miguel y Sus Teclados contract:</p>
+          <ul>
+            <li>The contract is not transferable to another date without prior agreement.</li>
+            <li>If the service is suspended for any reason attributable to the client, payment of 50% of the agreed amount may apply.</li>
+            <li>If the event is suspended due to a fight or similar situation, the client commits to paying 100% of the agreed amount.</li>
+          </ul>
+          <p>Exact terms are specified in the signed contract for each event.</p>`
+      },
+      agreement: {
+        es: `<h2>Acuerdo de servicio</h2>
+          <p>El servicio se rige por el contrato musical firmado entre Miguel Alejandro Bautista (representante de Miguel y Sus Teclados) y el contratante.</p>
+          <p>Incluye, entre otras cláusulas:</p>
+          <ul>
+            <li>Duración pactada y horarios.</li>
+            <li>Monto total, anticipo y saldo.</li>
+            <li>Domicilio del evento y condiciones del lugar (espacio, techo, electricidad).</li>
+            <li>Descansos de 15 minutos por cada hora de ejecución.</li>
+            <li>Compromiso de ambas partes de cumplir horarios y términos.</li>
+          </ul>
+          <p>El contrato completo se entrega y firma al confirmar la reserva. No se publica el contrato privado en este sitio.</p>`,
+        en: `<h2>Service agreement</h2>
+          <p>The service is governed by the musical contract signed between Miguel Alejandro Bautista (representative of Miguel y Sus Teclados) and the client.</p>
+          <p>It includes, among other clauses:</p>
+          <ul>
+            <li>Agreed duration and schedule.</li>
+            <li>Total amount, deposit, and balance.</li>
+            <li>Event address and venue conditions (space, cover, electricity).</li>
+            <li>15-minute breaks per hour of performance.</li>
+            <li>Commitment by both parties to honor times and terms.</li>
+          </ul>
+          <p>The full contract is delivered and signed upon confirming the booking. The private contract is not published on this site.</p>`
+      }
+    };
+
+    document.querySelectorAll('[data-modal]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const key = link.dataset.modal;
+        document.getElementById('modalBody').innerHTML = policyContent[key][currentLang];
+        document.getElementById('modal').classList.add('open');
+      });
+    });
+    document.getElementById('modalClose').addEventListener('click', () => {
+      document.getElementById('modal').classList.remove('open');
+    });
+    document.getElementById('modal').addEventListener('click', e => {
+      if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open');
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Initial lang
+    setLang('es');
+  </script>
+</body>
+</html>
