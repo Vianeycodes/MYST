@@ -182,9 +182,11 @@
                   var(--primary);
       overflow: hidden;
     }
+
+    /* Background for hero section */
     .hero::before {
       content: ''; position: absolute; inset: 0;
-      background: url('logo-card.png') center/cover no-repeat;
+      background: url('logo.png') center/cover no-repeat;
       opacity: 0.08; filter: blur(2px);
     }
     .hero-content {
@@ -523,7 +525,7 @@
   <nav class="nav" id="nav" role="navigation" aria-label="Principal">
     <div class="nav-inner">
       <a href="#inicio" class="nav-logo">
-        <img src="logo-card.png" alt="Miguel y Sus Teclados logo">
+        <img src="logo.png" alt="Miguel y Sus Teclados logo">
         <span class="nav-brand-text" data-i18n="brand">Miguel y Sus Teclados</span>
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Menú" aria-expanded="false">
